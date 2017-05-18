@@ -2,35 +2,51 @@
 
 Secretly store your secrets, wherever, whenever.
 
+## Development
+
+```bash
+dep ensure --update
+go run main.go
+```
+
 ## Goals
 
 - consistant CLI
+- predictable behaviours
 - use a local GPG to guarantee consistency
-- compatible with git-secret and blackbox
 
 ## Commands
 
-```bash
-# Initialize in the current directory, or at the VCS root (if any)
-stronghold init
-# Deinitialize
-stronghold deinit
-# Add a new user to the pool
-stronghold allow hi@aymericbeaumet.com
-stronghold disallow hi@aymericbeaumet.com
-# Files can be added/removed like so
-stronghold add file/path/1
-stronghold rm file/path/1
-# Files can be added/updated for a specific user with --only and --except
-stronghold add file/path/1 --only hi@aymericbeaumet.com
-stronghold update file/path/1 --except hi@aymericbeaumet.com
-# List known files and their permissions
+### Setup
+
+- [ ] `stronghold init` # Initialize in the current directory, or at the VCS root (if any)
+- [ ] `stronghold deinit` # Decrypt all files you can access, delete the .stronghold folder
+
+### Authenticating the current user
+
+The first user to authenticate will also see its key added to the root group,
+this group has full read/write access to the secrets and the configuration.
+
+- [ ] `stronghold auth add email1`
+- [ ] `stronghold auth remove email1`
+
+### Groups
+
+- [ ] `stronghold group create groupName`
+- [ ] `stronghold group delete groupName`
+- [ ] `stronghold group add groupName email1 (keyring|mit|pgp|sks):email2 keybase:username`
+- [ ] `stronghold group remove groupName email1`
+- [ ] `stronghold group list groupName [--files]`
+
+### Files
+
+- [ ] `stronghold [file] add file/path/1 directory/1 [--group group1:rw]`
+- [ ] `stronghold [file] remove file/path/1`
+- [ ] `stronghold [file] list [--groups]`
+- [ ] `stronghold [file] restrict file/path/1 [--group group1:rw]`
+- [ ] `stronghold [file] encrypt [file/path/1] [--all]`
+- [ ] `stronghold [file] decrypt [file/path/1] [--all]`
 ```
-
-## Alternatives
-
-- [blackbox](https://github.com/StackExchange/blackbox)
-- [git-secret](https://github.com/sobolevn/git-secret)
 
 ## License
 

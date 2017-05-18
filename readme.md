@@ -27,8 +27,8 @@ go run main.go
 The first user to authenticate will also see its key added to the root group,
 this group has full read/write access to the secrets and the configuration.
 
-- [ ] `stronghold auth add email1`
-- [ ] `stronghold auth remove email1`
+- [ ] `stronghold auth email1`
+- [ ] `stronghold deauth email1`
 
 ### Groups
 

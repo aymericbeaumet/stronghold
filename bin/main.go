@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/aymericbeaumet/stronghold/cli"
+	"github.com/aymericbeaumet/stronghold/lib/cli"
 )
 
 func main() {

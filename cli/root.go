@@ -2,9 +2,9 @@ package cli
 
 import "github.com/spf13/cobra"
 
-// RootCmd is the first command of this program, from which all the other
+// RootCommand is the first command of this program, from which all the other
 // commands will inherit.
-var RootCmd = &cobra.Command{
+var RootCommand = &cobra.Command{
 	Use:   "stronghold",
 	Short: "Stronghold allows you to safely store encrypted secrets",
 	Long: `Cobra is a CLI library for Go that empowers applications.
@@ -19,6 +19,6 @@ var Gpg = ""
 var Homedir = ""
 
 func init() {
-	RootCmd.PersistentFlags().StringVar(&Gpg, "gpg", "gpg", "gpg binary")
-	RootCmd.PersistentFlags().StringVar(&Homedir, "homedir", "", "gpg home directory")
+	RootCommand.PersistentFlags().StringVar(&Gpg, "gpg", "gpg", "gpg binary")
+	RootCommand.PersistentFlags().StringVar(&Homedir, "homedir", "", "gpg home directory")
 }

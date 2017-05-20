@@ -4,16 +4,23 @@ Secretly store your secrets, wherever, whenever.
 
 ## Development
 
+To run the program:
+
+```bash
+go run main.go
+```
+
+Whenever the dependencies are updated:
+
 ```bash
 dep ensure --update
-go run main.go
 ```
 
 ## Goals
 
-- consistant CLI
-- predictable behaviours
-- use a local GPG to guarantee consistency
+- simple and meaningful CLI
+- GPG1 and GPG2 can be interchanged at anytime
+- it has been carefully crafted to not get in the way of VCS
 
 ## Commands
 

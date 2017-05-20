@@ -8,8 +8,7 @@ import (
 )
 
 func main() {
-	err := cli.RootCmd.Execute()
-	if err != nil {
+	if err := cli.RootCommand.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}

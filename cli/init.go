@@ -6,60 +6,38 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/aymericbeaumet/stronghold/lib/pgp"
+	"github.com/aymericbeaumet/stronghold/lib/crypto"
 	"github.com/aymericbeaumet/stronghold/lib/stronghold"
-	strongholdGroup "github.com/aymericbeaumet/stronghold/lib/stronghold/group"
-	strongholdUser "github.com/aymericbeaumet/stronghold/lib/stronghold/user"
 )
 
-// InitMainCmd takes care of initializing the repository.
-var InitMainCmd = &cobra.Command{
+// InitCommand takes care of initializing the repository.
+var InitCommand = &cobra.Command{
 	Use:   "init identifier",
 	Short: "Initialize stronghold",
 	Long: `Initialize stronghold. The command starts from the current directory
 and walks up until it finds either a Stronghold or a VCS marker. If no marker is
 found, it falls back to the current directory.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
+		// Initialize the key box with the private key
 		if len(args) < 1 {
 			return errors.New("The private key identifier is mandatory")
 		}
-		_, err := pgp.New(pgp.NewOptions{
-			Identifier: args[0],
-			Gpg:        Gpg,
-			Homedir:    Homedir,
-		})
+		keyBox := crypto.NewKeyBox().SetPrivateKey(crypto.NewPrivateKey(args[0], Gpg, Homedir))
+		// Initialize the safe (walking up from the working directory), then commit
+		// to the disk
+		workingDirectory, err := os.Getwd()
 		if err != nil {
-			return err
+			panic(err)
 		}
-		wd, err := os.Getwd()
-		if err != nil {
-			return err
-		}
-		s, err := stronghold.New(stronghold.NewOptions{
-			WorkingDirectory: wd,
-		})
-		if err != nil {
-			return err
-		}
-		g, err := s.CreateGroup(strongholdGroup.NewOptions{
-			Name: "root",
-		})
-		if err != nil {
-			return err
-		}
-		if _, err := s.AddUser(strongholdUser.NewOptions{
-			Identifier: args[0],
-			Group:      g,
-		}); err != nil {
-			return err
-		}
-		if err = s.Dump(false); err != nil {
-			return err
-		}
-		return nil
+		safe := stronghold.NewVault(workingDirectory, keyBox)
+		user := stronghold.NewUser(args[0])
+		group := stronghold.NewGroup("root").AddUser(user)
+		safe.AddGroup(group)
+		safe.AddUser(user)
+		return safe.Commit()
 	},
 }
 
 func init() {
-	RootCmd.AddCommand(InitMainCmd)
+	RootCommand.AddCommand(InitCommand)
 }

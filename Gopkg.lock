@@ -1,4 +1,4 @@
-memo = "89ee22d544029e48a31526ab9395c72759f1cf41bd395891c0c3a9caa88cf46a"
+memo = "e44ca4704a49ca85bc5cba47c38620128e8086d7883efd3080c69c4e81ec5b38"
 
 [[projects]]
   branch = "master"
@@ -10,7 +10,7 @@ memo = "89ee22d544029e48a31526ab9395c72759f1cf41bd395891c0c3a9caa88cf46a"
   branch = "master"
   name = "github.com/spf13/cobra"
   packages = ["."]
-  revision = "fb1f39915d092e6ecbdb38c0861170bdf4416800"
+  revision = "ca5710c94eabe15aa1f74490b8e5976dc652e8c6"
 
 [[projects]]
   branch = "master"
@@ -21,5 +21,5 @@ memo = "89ee22d544029e48a31526ab9395c72759f1cf41bd395891c0c3a9caa88cf46a"
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
-  packages = ["openpgp/armor","openpgp/errors"]
+  packages = ["cast5","openpgp","openpgp/armor","openpgp/elgamal","openpgp/errors","openpgp/packet","openpgp/s2k"]
   revision = "0fe963104e9d1877082f8fb38f816fcd97eb1d10"

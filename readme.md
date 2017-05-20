@@ -53,7 +53,6 @@ this group has full read/write access to the secrets and the configuration.
 - [ ] `stronghold [file] restrict file/path/1 [--group group1:rw]`
 - [ ] `stronghold [file] encrypt [file/path/1] [--all]`
 - [ ] `stronghold [file] decrypt [file/path/1] [--all]`
-```
 
 ## License
 
